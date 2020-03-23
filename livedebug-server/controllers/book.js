@@ -4,6 +4,7 @@ const {
 
 class BookController {
   static create(req, res, next) {
+    console.log(req.body, 'ini dari ctl book')
     const {
       isbn,
       title,

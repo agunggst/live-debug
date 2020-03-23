@@ -24,7 +24,7 @@ class LoanController {
   static find(req, res, next) {
     Loan.findAll()
       .then(function (loans) {
-        res.json(loans);
+        res.status(200).json(loans);
       })
       .catch(next);
   }
@@ -46,12 +46,13 @@ class LoanController {
           });
         } else {
           loan.date_returned = new Date();
-          loan.save().then(function () {
-            res.json({
-              message: 'Successfully returned'
-            });
-          });
+          return loan.save()
         }
+      })
+      .then(function () {
+        res.status(200).json({
+          message: 'Successfully returned'
+        });
       })
       .catch(function (err) {
         if (err.name === 'CastError') next({

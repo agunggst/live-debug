@@ -1,7 +1,12 @@
 const request = require('supertest');
 const app = require('../app');
-const { Book, sequelize } = require('../models');
-const { queryInterface } = sequelize;
+const {
+  Book,
+  sequelize
+} = require('../models');
+const {
+  queryInterface
+} = sequelize;
 
 afterAll(done => {
   queryInterface
@@ -24,7 +29,10 @@ describe('Book Routes Test', () => {
         .post('/books')
         .send(data)
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(201);
           expect(body).toHaveProperty('id', expect.any(Number));
           expect(body).toHaveProperty('isbn', data.isbn);
@@ -43,7 +51,10 @@ describe('Book Routes Test', () => {
         .post('/books')
         .send({})
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(400);
           expect(body).toHaveProperty('errors', expect.any(Array));
           expect(body.errors).toEqual(expect.arrayContaining(expectedErrors));
@@ -64,7 +75,10 @@ describe('Book Routes Test', () => {
         .post('/books')
         .send(data)
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(400);
           expect(body).toHaveProperty('errors', expect.any(Array));
           expect(body.errors).toEqual(expect.arrayContaining(expectedErrors));
@@ -86,7 +100,10 @@ describe('Book Routes Test', () => {
         .post('/books')
         .send(data)
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(400);
           expect(body).toHaveProperty('errors', expect.any(Array));
           expect(body.errors).toEqual(expect.arrayContaining(expectedErrors));

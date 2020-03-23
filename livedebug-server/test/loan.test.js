@@ -1,7 +1,14 @@
 const request = require('supertest');
 const app = require('../app');
-const { Book, Loan, Member, sequelize } = require('../models');
-const { queryInterface } = sequelize;
+const {
+  Book,
+  Loan,
+  Member,
+  sequelize
+} = require('../models');
+const {
+  queryInterface
+} = sequelize;
 
 const member1 = {
   name: 'Hary Dhimas Prakoso',
@@ -57,7 +64,10 @@ describe('Loan Routes Test', () => {
         .post('/loans')
         .send(data)
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(201);
           expect(body).toHaveProperty('id', expect.any(Number));
           expect(body).toHaveProperty('MemberId', data.MemberId);
@@ -76,7 +86,10 @@ describe('Loan Routes Test', () => {
         .post('/loans')
         .send({})
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(400);
           expect(body).toHaveProperty('errors', expect.any(Array));
           expect(body.errors).toEqual(expect.arrayContaining(expectedErrors));
@@ -89,7 +102,10 @@ describe('Loan Routes Test', () => {
       request(app)
         .get('/loans')
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(200);
           expect(body.length).toBe(1)
           const firstData = body[0]
@@ -106,13 +122,16 @@ describe('Loan Routes Test', () => {
     test(`Should return status 200 and success message`, function (done) {
       const date_returned = new Date()
       const data = {
-        date_returned 
+        date_returned
       };
       request(app)
         .patch('/loans/' + loanId)
         .send(data)
         .then(response => {
-          const { body, status } = response;
+          const {
+            body,
+            status
+          } = response;
           expect(status).toBe(200);
           expect(body).toHaveProperty('message', 'Successfully returned');
           done();

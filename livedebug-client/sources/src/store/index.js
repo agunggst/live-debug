@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
-
+Vue.use(Vuex)
 
 const covid = axios.create({
   // baseURL: 'http://localhost:3000',
@@ -22,18 +22,22 @@ export default new Vuex.Store({
     australianCases: 0
   },
   mutations: {
-    FETCH_GLOBALS (state, payload) {
+    FETCH_GLOBALS(state, payload) {
       state.globals = payload
     },
-    FETCH_COUNTRIES (state, payload) {
+    FETCH_COUNTRIES(state, payload) {
       state.countries = state
     }
   },
   actions: {
-    fetchGlobals ({ commit }) {
+    fetchGlobals({
+      commit
+    }) {
       this.state.allLoading = true
       covid.get('/all')
-        .then(({ data }) => {
+        .then(({
+          data
+        }) => {
           commit('FETCH_GLOBALS', data)
         })
         .catch(err => {
@@ -43,10 +47,14 @@ export default new Vuex.Store({
           this.state.allLoading = false
         })
     },
-    fetchCountries ({ commit }) {
+    fetchCountries({
+      commit
+    }) {
       this.state.countriesLoading = true
       covid.get('/countries')
-        .then(({ data }) => {
+        .then(({
+          data
+        }) => {
           commit('FETCH_COUNTRIES', data)
         })
         .catch(err => {
@@ -74,6 +82,5 @@ export default new Vuex.Store({
       return state.countries.filter(el => el.country === 'Australia')
     }
   },
-  modules: {
-  }
+  modules: {}
 })

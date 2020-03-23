@@ -3,10 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Tracking from '../views/Tracking.vue'
 
-Vue.use(VuexRouter)
+Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home
@@ -25,5 +24,14 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.progress !== undefined) {
+    const meta = to.meta.progress;
+    this.$Progress.parseMeta(meta);
+  }
+  this.$Progress.start();
+  next();
+});
 
 export default router

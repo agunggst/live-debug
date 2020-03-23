@@ -31,10 +31,20 @@ Vue.use(vueSmoothScroll)
 Vue.config.productionTip = false
 
 new Vue({
-  created () {
+  created() {
     AOS.init()
   },
+  el: '#app',
   router,
   store,
   render: h => h(App)
-}).mount('#app')
+})
+
+// new Vue({
+//   created () {
+//     AOS.init()
+//   },
+//   router,
+//   store,
+//   render: h => h(App)
+// }).mount('#app')
